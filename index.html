@@ -82,21 +82,33 @@
     const foto = document.getElementById("foto");
 
     document.getElementById("camara-btn").addEventListener("click", () => {
+      // Reproduce la voz para dar instrucciones antes de mostrar la foto
       hablar("Perfecto... en uno... dos... tres... cuatro... cinco... sonríe!");
       document.getElementById("mensaje").innerText = "1... 2... 3... 4... 5... ¡Sonríe!";
+
+      // Espera 6 segundos para la cuenta regresiva y sonido de cámara
       setTimeout(() => {
+        // Reproducir sonido de cámara
         sonidoCamara.play();
+
+        // Mostrar la foto con animación
         foto.style.display = "block";
         document.getElementById("mensaje").innerText = "¡Jajajaja! ¡Saliste increíble, Ailany! ¡Jajajajaja!";
+
+        // Reproducir el mensaje de la voz
         hablar("jajajajaja, saliste increíble Ailany, jajajajaja");
+
+        // Reproducir la música después de mostrar la foto
         musica.play();
       }, 6000);
     });
 
+    // Iniciar con un saludo cuando la página se carga
     window.onload = () => {
       hablar("Hola Ailany, ¿lista para tomarte una foto? Presiona el botón de cámara cuando estés lista.");
     };
   </script>
 </body>
 </html>
+
 
