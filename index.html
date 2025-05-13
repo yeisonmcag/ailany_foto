@@ -19,7 +19,7 @@
       overflow: hidden;
     }
 
-    #camara-btn {
+    #start-btn, #camara-btn {
       background: #ff69b4;
       border: none;
       border-radius: 50%;
@@ -30,6 +30,10 @@
       cursor: pointer;
       margin-top: 20px;
       box-shadow: 0 0 10px #ff69b4;
+    }
+
+    #camara-btn {
+      display: none;
     }
 
     #foto {
@@ -62,7 +66,8 @@
   </style>
 </head>
 <body>
-  <div id="mensaje">Hola Ailany, ¿lista para tomarte una foto?<br>Presiona el botón de cámara cuando estés lista.</div>
+  <div id="mensaje">¡Bienvenida Ailany!<br>¿Lista para una sorpresa divertida?</div>
+  <button id="start-btn">🎀</button>
   <button id="camara-btn">📸</button>
   <img id="foto" src="foto_final.jpg" alt="Foto tomada" />
 
@@ -80,18 +85,28 @@
     const sonidoCamara = document.getElementById("sonido-camara");
     const musica = document.getElementById("musica");
     const foto = document.getElementById("foto");
-    let musicaIniciada = false;
+    const startBtn = document.getElementById("start-btn");
+    const camaraBtn = document.getElementById("camara-btn");
 
-    document.getElementById("camara-btn").addEventListener("click", () => {
-      // Desbloquear audio en móviles
-      if (!musicaIniciada) {
-        musica.play().then(() => {
-          musica.pause();
-          musica.currentTime = 0;
-          musicaIniciada = true;
-        }).catch(() => {});
-      }
+    startBtn.addEventListener("click", () => {
+      // Activar sonido en móviles
+      musica.play().then(() => {
+        musica.pause();
+        musica.currentTime = 0;
+      }).catch(() => {});
+      sonidoCamara.play().then(() => {
+        sonidoCamara.pause();
+        sonidoCamara.currentTime = 0;
+      }).catch(() => {});
 
+      // Cambiar interfaz
+      startBtn.style.display = "none";
+      camaraBtn.style.display = "inline-block";
+      document.getElementById("mensaje").innerText = "Presiona el botón de cámara para tomarte una foto divertida";
+      hablar("Ahora presiona el botón de la cámara para comenzar la sorpresa, Ailany.");
+    });
+
+    camaraBtn.addEventListener("click", () => {
       hablar("Perfecto... en uno... dos... tres... cuatro... cinco... sonríe!");
       document.getElementById("mensaje").innerText = "1... 2... 3... 4... 5... ¡Sonríe!";
 
@@ -105,7 +120,7 @@
     });
 
     window.onload = () => {
-      hablar("Hola Ailany, ¿lista para tomarte una foto? Presiona el botón de cámara cuando estés lista.");
+      hablar("Hola Ailany, ¿lista para una sorpresa divertida?");
     };
   </script>
 </body>
