@@ -89,17 +89,19 @@
     const camaraBtn = document.getElementById("camara-btn");
 
     startBtn.addEventListener("click", () => {
-      // Activar sonido en móviles
-      musica.play().then(() => {
-        musica.pause();
-        musica.currentTime = 0;
-      }).catch(() => {});
-      sonidoCamara.play().then(() => {
-        sonidoCamara.pause();
-        sonidoCamara.currentTime = 0;
-      }).catch(() => {});
+      // Desbloquear sonido sin que suene
+      const desbloquear = (audio) => {
+        audio.muted = true;
+        audio.play().then(() => {
+          audio.pause();
+          audio.currentTime = 0;
+          audio.muted = false;
+        }).catch(() => {});
+      };
 
-      // Cambiar interfaz
+      desbloquear(musica);
+      desbloquear(sonidoCamara);
+
       startBtn.style.display = "none";
       camaraBtn.style.display = "inline-block";
       document.getElementById("mensaje").innerText = "Presiona el botón de cámara para tomarte una foto divertida";
@@ -125,6 +127,7 @@
   </script>
 </body>
 </html>
+
 
 
 
