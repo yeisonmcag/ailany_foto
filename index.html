@@ -17,6 +17,7 @@
       height: 100vh;
       text-align: center;
       overflow: hidden;
+      position: relative;
     }
 
     #start-btn, #camara-btn {
@@ -63,9 +64,24 @@
         opacity: 1;
       }
     }
+
+    /* Flash effect */
+    #flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      transition: opacity 0.2s ease-in-out;
+    }
   </style>
 </head>
 <body>
+  <div id="flash"></div>
   <div id="mensaje">¡Bienvenida Ailany!<br>¿Lista para una sorpresa divertida?</div>
   <button id="start-btn">🎀</button>
   <button id="camara-btn">📸</button>
@@ -87,9 +103,10 @@
     const foto = document.getElementById("foto");
     const startBtn = document.getElementById("start-btn");
     const camaraBtn = document.getElementById("camara-btn");
+    const flash = document.getElementById("flash");
 
     startBtn.addEventListener("click", () => {
-      // Desbloquear sonido sin que suene
+      // Desbloquear sonidos
       const desbloquear = (audio) => {
         audio.muted = true;
         audio.play().then(() => {
@@ -113,6 +130,12 @@
       document.getElementById("mensaje").innerText = "1... 2... 3... 4... 5... ¡Sonríe!";
 
       setTimeout(() => {
+        // FLASH efecto
+        flash.style.opacity = 1;
+        setTimeout(() => {
+          flash.style.opacity = 0;
+        }, 100);
+
         sonidoCamara.play();
         foto.style.display = "block";
         document.getElementById("mensaje").innerText = "¡Jajajaja! ¡Saliste increíble, Ailany! ¡Jajajajaja!";
